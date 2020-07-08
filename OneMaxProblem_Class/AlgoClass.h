@@ -9,6 +9,13 @@ using namespace std;
 class AlgoClass
 {
 public:
+	int savefreq = 50;
+	int** rundata;
+	int* savedata;
+	int savenum;
+	FILE* fp;
+	char filename[100];
+	char algoname[20];
 	MyBitSet bit_map;
 	MyBitSet bit_best;
 	MyBitSet bit_tmp;
@@ -22,5 +29,6 @@ public:
 	int evaluation();
 	void transition();
 	void run();
+	void writefile();
 	//~AlgoClass() {};
 };

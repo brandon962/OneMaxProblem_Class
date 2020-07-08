@@ -3,7 +3,7 @@
 
 class Hc : public AlgoClass {
 public:
-
+	
 public:
 	void mesg() {
 		cout << "HI, here is hc algo." << endl;
@@ -14,37 +14,74 @@ public:
 		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
+	void start() {
+		bit_map = MyBitSet(bits);
+		bit_best = MyBitSet(bits);
+		strcpy(algoname, "hc");
+		mesg();
+		savenum = iterations / savefreq;
+		rundata = (int**)calloc(runs, sizeof(int*));
+		for (int i = 0; i < runs; i++) {
+			rundata[i] = (int*)calloc(savenum, sizeof(int));
+		}
+		savedata = (int*)calloc(savenum, sizeof(int));
+	}
+
 	Hc() {
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
-		bit_map = MyBitSet(bits);
-		bit_best = MyBitSet(bits);
-
-		mesg();
+		start();
 	}
 	Hc(int _r, int _i, int _b) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		bit_map = MyBitSet(bits);
-		bit_best = MyBitSet(bits);
-
-		mesg();
+		start();
 	}
 
 	void run() {
+		
+		int count;
+		
 		start_time = time(NULL);
 		for (int i = 1; i < runs + 1; i++) {
 			cout << "Start " << i << " run." << endl;
 			initial();
-			for (int j = 0; j < iterations; j++)
+			count = 0;
+			for (int j = 0 ; j < iterations; j++)
 			{
 				transition();
 				determination();
+				if ((j+1)%savefreq == 0) {
+					rundata[i-1][count] = gp;
+					count++;
+				}
+
 			}
 			cout << "End " << i << " run." << endl << endl;
 		}
+		int itmp = 0;
+		for (int i = 0; i < savenum; i++) {
+			itmp = 0;
+			for (int j = 0; j < runs; j++) {
+				itmp += rundata[j][i];
+			}
+			savedata[i] = itmp / runs;
+		}
+
+
+		strcpy(filename, "./data/");
+		strcat(filename, algoname);
+		strcat(filename, ".txt");
+
+		fp = fopen(filename, "w+");
+
+		for (int i = 0; i < savenum; i++) {
+			fprintf(fp, "%d%s", savedata[i], "\n");
+		}
+
+		fclose(fp);
 	}
 
 	void initial() {
@@ -89,4 +126,7 @@ public:
 		return;
 	}
 
+	void writefile() {
+
+	}
 };
