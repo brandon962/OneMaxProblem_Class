@@ -18,7 +18,7 @@ public:
 	char algoname[20];
 	MyBitSet bit_map;
 	MyBitSet bit_best;
-	MyBitSet bit_tmp;
+	MyBitSet bit_acc;
 	int runs, iterations, bits, np, gp;
 	//string outputfile;
 	time_t start_time, now_time, end_time;
