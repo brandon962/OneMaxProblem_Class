@@ -6,6 +6,7 @@
 class Sa : public AlgoClass {
 public:
 	double temperature = 1;
+	int ap;
 	double temperature_end = 0.001;
 public:
 	void mesg() {
@@ -105,6 +106,7 @@ public:
 
 		bit_best = bit_map;
 		bit_acc = bit_map;
+		ap = evaluation(bit_acc);
 		np = evaluation(bit_map);
 		gp = np;
 
@@ -128,7 +130,7 @@ public:
 	}
 
 	double probability() {
-		return exp(((double)evaluation(bit_map) - (double)evaluation(bit_best)) / temperature);
+		return exp((0.0 + np - ap) / temperature);
 	}
 
 	void determination() {
@@ -138,6 +140,7 @@ public:
 		if (probability() > r)
 		{
 			bit_acc = bit_map;
+			ap = evaluation(bit_acc);
 			if (np > gp) {
 				bit_best = bit_map;
 				gp = np;
