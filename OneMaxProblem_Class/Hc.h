@@ -120,8 +120,8 @@ public:
 		if (np > gp) {
 			bit_best = bit_map;
 			gp = np;
-			cout << bit_best.to_string() << endl;
-			cout << "Have " << gp << " bits." << endl;
+			//cout << bit_best.to_string() << endl;
+			//cout << "Have " << gp << " bits." << endl;
 		}
 		return;
 	}

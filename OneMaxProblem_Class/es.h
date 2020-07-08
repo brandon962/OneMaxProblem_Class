@@ -14,23 +14,30 @@ public:
 		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
+	void start() {
+		bit_map = MyBitSet(bits);
+		bit_best = MyBitSet(bits);
+		strcpy(algoname, "es");
+		mesg();
+		savenum = iterations / savefreq;
+		rundata = (int**)calloc(runs, sizeof(int*));
+		for (int i = 0; i < runs; i++) {
+			rundata[i] = (int*)calloc(savenum, sizeof(int));
+		}
+		savedata = (int*)calloc(savenum, sizeof(int));
+	}
+
 	Es() {
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
-		bit_map = MyBitSet(bits);
-		bit_best = MyBitSet(bits);
-
-		mesg();
+		start();
 	}
 	Es(int _r, int _i, int _b) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		bit_map = MyBitSet(bits);
-		bit_best = MyBitSet(bits);
-		
-		mesg();
+		start();
 	}
 
 	void run() {
