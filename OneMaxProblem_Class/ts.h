@@ -124,12 +124,14 @@ public:
 			itmp = rand() % bits;
 			bit_map.flip(itmp);
 		} while (find_tabu(tabu_list, bit_map.bit_map));
+
 		if (tabu_list.size() < list_long)
 			tabu_list.push(bit_map.bit_map);
 		else {
 		tabu_list.pop();
 		tabu_list.push(bit_map.bit_map);
 		}
+
 		np = evaluation(bit_map);
 	}
 

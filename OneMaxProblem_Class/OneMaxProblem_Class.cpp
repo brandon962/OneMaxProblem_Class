@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     string algo;
     int temperature = 1;
     int alpha = 0.9;
-    int list_long = 7;
+    int list_long = 10;
 
     if (argc > 1)
         algo = argv[1];

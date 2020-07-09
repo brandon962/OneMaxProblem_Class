@@ -1,0 +1,28 @@
+HW2_0708_sa_ts
+
+1.輸入格式 :
+	es : 
+		執行命令 :
+			[執行檔] [runs] [iterations] [bits] [temperature] [alpha]
+			alpha : 降溫指數
+			temperature 的公式為 temperature *= alpha
+
+	ts :
+		執行命令 :
+			[執行檔] [runs] [iterations] [bits] [list_long]
+			list_long : tabu list 的長度
+
+	若輸入有誤，將自動依序執行hc, hclr, es, ts。
+	預設格式 :
+		runs : 30
+		iterations : 1000
+		bits : 100
+		temperature : 1
+		alpha : 0.9
+		list_long : 10
+
+2.最佳解和平均解 :
+	es,ts :
+		在 100 bits 和 1000 iterations 的情況下，
+		這兩者皆可以在時限內找到 100 bit 的最佳解。
+
