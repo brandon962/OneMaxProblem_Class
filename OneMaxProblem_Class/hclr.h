@@ -77,7 +77,7 @@ public:
 		fp = fopen(filename, "w+");
 
 		for (int i = 0; i < savenum; i++) {
-			fprintf(fp, "%d%s", savedata[i], "\n");
+			fprintf(fp, "%d%s%d%s", (i + 1) * savefreq, " ", savedata[i], "\n");
 		}
 
 		fclose(fp);

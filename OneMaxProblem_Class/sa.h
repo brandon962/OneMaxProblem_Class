@@ -7,6 +7,7 @@ class Sa : public AlgoClass {
 public:
 	double temperature = 1;
 	double temperature_end = 0.001;
+	int ap;
 public:
 	void mesg() {
 		cout << "HI, here is sa algo." << endl;
@@ -88,7 +89,7 @@ public:
 		fp = fopen(filename, "w+");
 
 		for (int i = 0; i < savenum; i++) {
-			fprintf(fp, "%d%s", savedata[i], "\n");
+			fprintf(fp, "%d%s%d%s", (i + 1) * savefreq, " ", savedata[i], "\n");
 		}
 
 		fclose(fp);
@@ -105,6 +106,7 @@ public:
 
 		bit_best = bit_map;
 		bit_acc = bit_map;
+		ap = evaluation(bit_acc);
 		np = evaluation(bit_map);
 		gp = np;
 
@@ -128,7 +130,7 @@ public:
 	}
 
 	double probability() {
-		return exp(((double)evaluation(bit_map) - (double)evaluation(bit_best)) / temperature);
+		return exp((0.0 + np - ap) / temperature);
 	}
 
 	void determination() {
@@ -138,6 +140,7 @@ public:
 		if (probability() > r)
 		{
 			bit_acc = bit_map;
+			ap = evaluation(bit_acc);
 			if (np > gp) {
 				bit_best = bit_map;
 				gp = np;
