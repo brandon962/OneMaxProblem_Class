@@ -14,7 +14,7 @@ public:
 		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
-	void start() {
+	void init() {
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "es");
@@ -31,13 +31,13 @@ public:
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
-		start();
+		init();
 	}
 	Es(int _r, int _i, int _b) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		start();
+		init();
 	}
 
 	void run() {

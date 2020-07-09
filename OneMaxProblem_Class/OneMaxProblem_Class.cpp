@@ -1,6 +1,7 @@
 ﻿#define _CRT_SECURE_NO_DEPRECATE
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #include <iostream>
+#include <string>
 #include "mybitset.h"
 #include "es.h"
 #include "hclr.h"
@@ -10,19 +11,72 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-    /*Hc test = Hc(30, 3000, 100);
-    test.run();
-    */
+    int runs = 30;
+    int bits = 100;
+    int iterations = 1000;
+    string algo;
+    int temperature = 1;
+    int alpha = 0.9;
+    int list_long = 7;
+
+    if (argc > 1)
+        algo = argv[1];
+
+    if (algo == "hc") {
+        if(argc > 4) {
+            runs = atoi(argv[2]);
+            iterations = atoi(argv[3]);
+            bits = atoi(argv[4]);
+        }
+
+        Hc hc = Hc(runs, iterations, bits);
+        hc.run();
+    }
+    else if (algo == "hclr") {
+        if (argc > 4) {
+            runs = atoi(argv[2]);
+            iterations = atoi(argv[3]);
+            bits = atoi(argv[4]);
+        }
+        HcLr hclr = HcLr(runs, iterations, bits);
+        hclr.run();
+    }
+    else if (algo == "sa") {
+        if (argc > 6) {
+            runs = atoi(argv[2]);
+            iterations = atoi(argv[3]);
+            bits = atoi(argv[4]);
+            temperature = atoi(argv[5]);
+            alpha = atoi(argv[6]);
+        }
+        Sa sa = Sa(runs, iterations, bits, temperature, alpha);
+        sa.run();
+    }
+    else if (algo == "ts") {
+        if (argc > 5) {
+            runs = atoi(argv[2]);
+            iterations = atoi(argv[3]);
+            bits = atoi(argv[4]);
+            list_long = atoi(argv[5]);
+        }
+        Ts ts = Ts(runs, iterations, bits, list_long);
+        ts.run();
+    }
+    else
+    {
+        Hc hc = Hc(runs, iterations, bits);
+        hc.run();
+        HcLr hclr = HcLr(runs, iterations, bits);
+        hclr.run();
+        Sa sa = Sa(runs, iterations, bits, temperature, alpha);
+        sa.run();
+        Ts ts = Ts(runs, iterations, bits, list_long);
+        ts.run();
+    }
     
-    
-    Ts test2 = Ts(30, 1000, 100);
-    test2.run();
-    
-    Sa test1 = Sa(30, 1000, 100);
-    test1.run();
-    
-    system("PAUSE");
+
+
 }
 

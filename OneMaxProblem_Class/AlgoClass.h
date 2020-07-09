@@ -24,6 +24,7 @@ public:
 	time_t start_time, now_time, end_time;
 
 public:
+	void init();
 	AlgoClass() {};
 	void initial();
 	int evaluation();

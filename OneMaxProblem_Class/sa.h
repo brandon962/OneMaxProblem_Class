@@ -8,6 +8,7 @@ public:
 	double temperature = 1;
 	double temperature_end = 0.001;
 	int ap;
+	double alpha = 0.85;
 public:
 	void mesg() {
 		cout << "HI, here is sa algo." << endl;
@@ -15,10 +16,9 @@ public:
 		cout << "\t" << bits << " bits" << endl;
 		cout << "\t" << iterations << " iterations" << endl;
 		cout << "\t" << runs << " runs" << endl;
-		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
-	void start() {
+	void init() {
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "sa");
@@ -35,13 +35,15 @@ public:
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
-		start();
+		init();
 	}
-	Sa(int _r, int _i, int _b) {
+	Sa(int _r, int _i, int _b, double _t, double _a) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		start();
+		temperature = _t;
+		alpha = _a;
+		init();
 	}
 
 	void run() {
@@ -57,20 +59,16 @@ public:
 			{
 				transition();
 				determination();
-				temperature *= 0.85;
-				/*if (temperature < temperature_end) {
-					for (int k = count; k < savenum; k++)
-						rundata[i - 1][k] = gp;
-					break;
-				}*/
+				temperature *= alpha;
+				
 				if ((j + 1) % savefreq == 0) {
 					rundata[i - 1][count] = gp;
 					count++;
 				}
 
 			}
-			cout << "End " << i << " run." << endl ;
 			cout << "Have " << gp << "'s 1" << endl << endl;
+			cout << "End " << i << " run." << endl ;
 		}
 		int itmp = 0;
 		for (int i = 0; i < savenum; i++) {
@@ -93,6 +91,8 @@ public:
 		}
 
 		fclose(fp);
+		end_time = time(NULL);
+		
 	}
 
 	void initial() {
@@ -123,10 +123,7 @@ public:
 		bit_map = bit_acc;
 		int itmp = rand() % bits;
 		bit_map.flip(itmp);
-		//cout << itmp << "   " << bit_map.bit_map[itmp] << "  " << bit_best.bit_map[itmp] << endl;
 		np = evaluation(bit_map);
-		//cout << bit_map.to_string() << endl;
-		//cout << "np = " << np << endl;
 	}
 
 	double probability() {
@@ -144,15 +141,10 @@ public:
 			if (np > gp) {
 				bit_best = bit_map;
 				gp = np;
-				//cout << bit_best.to_string() << endl;
-				//cout << "Have " << gp << " bits." << endl;
 			}
 		}
 		return;
 	}
 
-	void writefile() {
-
-	}
 };
 

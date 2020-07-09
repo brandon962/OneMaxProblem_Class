@@ -11,10 +11,9 @@ public:
 		cout << "\t" << bits << " bits" << endl;
 		cout << "\t" << iterations << " iterations" << endl;
 		cout << "\t" << runs << " runs" << endl;
-		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
-	void start() {
+	void init() {
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "hc");
@@ -31,13 +30,13 @@ public:
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
-		start();
+		init();
 	}
 	Hc(int _r, int _i, int _b) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		start();
+		init();
 	}
 
 	void run() {
@@ -59,6 +58,7 @@ public:
 				}
 
 			}
+			cout << "Have " << gp << " 1's." << endl;
 			cout << "End " << i << " run." << endl << endl;
 		}
 		int itmp = 0;
@@ -110,23 +110,14 @@ public:
 		bit_map = bit_best;
 		int itmp = rand() % bits;
 		bit_map.flip(itmp);
-		//cout << itmp << "   " << bit_map.bit_map[itmp] << "  " << bit_best.bit_map[itmp] << endl;
 		np = evaluation(bit_map);
-		//cout << bit_map.to_string() << endl;
-		//cout << "np = " << np << endl;
 	}
 
 	void determination() {
 		if (np > gp) {
 			bit_best = bit_map;
 			gp = np;
-			//cout << bit_best.to_string() << endl;
-			//cout << "Have " << gp << " bits." << endl;
 		}
 		return;
-	}
-
-	void writefile() {
-
 	}
 };

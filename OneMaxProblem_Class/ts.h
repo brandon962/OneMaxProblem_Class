@@ -1,6 +1,7 @@
 #pragma once
 #include "AlgoClass.h"
 #include <queue>
+#include <string>
 
 class Ts : public AlgoClass {
 public:
@@ -16,7 +17,7 @@ public:
 		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
-	void start() {
+	void init() {
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "ts");
@@ -29,13 +30,14 @@ public:
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
-		start();
+		init();
 	}
-	Ts(int _r, int _i, int _b) {
+	Ts(int _r, int _i, int _b, int _l) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		start();
+		list_long = _l;
+		init();
 	}
 
 	void run() {
@@ -61,7 +63,7 @@ public:
 			while (!tabu_list.empty()) {
 				tabu_list.pop();
 			}
-			
+			cout << "Have " << gp << " 1's." << endl;
 			cout << "End " << i << " run." << endl << endl;
 		}
 		
@@ -82,7 +84,7 @@ public:
 
 		fclose(fp);
 		end_time = time(NULL);
-		cout << "Cost " << end_time - start_time << " s." << endl;
+		//cout << "Cost " << end_time - start_time << " s." << endl;
 	}
 
 	void initial() {
@@ -103,6 +105,8 @@ public:
 			tabu_list.push(bit_map.bit_map);
 		}
 
+		
+
 		cout << "The initial bitmap" << endl;
 		cout << bit_map.to_string() << endl;
 		cout << "The number of 1's : " << np << endl;
@@ -122,18 +126,13 @@ public:
 		} while (find_tabu());
 		tabu_list.pop();
 		tabu_list.push(bit_map.bit_map);
-		//cout << itmp << "   " << bit_map.bit_map[itmp] << "  " << bit_best.bit_map[itmp] << endl;
 		np = evaluation(bit_map);
-		cout << bit_map.to_string() << endl;
-		//cout << "np = " << np << endl;
 	}
 
 	void determination() {
 		if (np > gp) {
 			bit_best = bit_map;
 			gp = np;
-			//cout << bit_best.to_string() << endl;
-			//cout << "Have " << gp << " bits." << endl;
 		}
 		return;
 	}
@@ -150,11 +149,14 @@ public:
 		return false;
 	}
 
+
+
 	bool find_tabu() {
 		queue<vector<bool>> ltmp = tabu_list;
+		vector<bool> btmp = bit_map.bit_map;
 		int size = ltmp.size();
 		for (int i = 0; i < size; i++) {
-			if (ltmp.front() == bit_map.bit_map) {
+			if (ltmp.front() == btmp) {
 				return true;
 			}
 			ltmp.pop();
