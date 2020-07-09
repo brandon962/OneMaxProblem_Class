@@ -6,7 +6,7 @@
 class Ts : public AlgoClass {
 public:
 	queue <vector<bool>> tabu_list;
-	int list_long = 100;
+	int list_long = 10;
 public:
 	void mesg() {
 		cout << "HI, here is ts algo." << endl;
@@ -14,7 +14,6 @@ public:
 		cout << "\t" << bits << " bits" << endl;
 		cout << "\t" << iterations << " iterations" << endl;
 		cout << "\t" << runs << " runs" << endl;
-		//cout << "\t" << "Output filename : \"" << outputfile << "\"" << endl;
 	}
 
 	void init() {
@@ -84,7 +83,6 @@ public:
 
 		fclose(fp);
 		end_time = time(NULL);
-		//cout << "Cost " << end_time - start_time << " s." << endl;
 	}
 
 	void initial() {
