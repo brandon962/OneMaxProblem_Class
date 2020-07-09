@@ -14,14 +14,14 @@ int main()
 {
     /*Hc test = Hc(30, 3000, 100);
     test.run();
-
-    Sa test1 = Sa(30, 3000, 100);
-    test1.run();*/
+    */
     
-    Ts test2 = Ts(30, 3000, 100);
+    
+    Ts test2 = Ts(30, 1000, 100);
     test2.run();
     
-
+    Sa test1 = Sa(30, 1000, 100);
+    test1.run();
     
     system("PAUSE");
 }
