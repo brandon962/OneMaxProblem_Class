@@ -30,7 +30,6 @@ int main(int argc, char* argv[])
             iterations = atoi(argv[3]);
             bits = atoi(argv[4]);
         }
-
         Hc hc = Hc(runs, iterations, bits);
         hc.run();
     }
@@ -76,7 +75,7 @@ int main(int argc, char* argv[])
         ts.run();
     }
     
-
+    return 0;
 
 }
 

@@ -6,7 +6,7 @@
 class Ts : public AlgoClass {
 public:
 	queue <vector<bool>> tabu_list;
-	int list_long = 10;
+	int list_long = 100;
 public:
 	void mesg() {
 		cout << "HI, here is ts algo." << endl;
@@ -123,9 +123,13 @@ public:
 			bit_map = bit_best;
 			itmp = rand() % bits;
 			bit_map.flip(itmp);
-		} while (find_tabu());
+		} while (find_tabu(tabu_list, bit_map.bit_map));
+		if (tabu_list.size() < list_long)
+			tabu_list.push(bit_map.bit_map);
+		else {
 		tabu_list.pop();
 		tabu_list.push(bit_map.bit_map);
+		}
 		np = evaluation(bit_map);
 	}
 
@@ -133,6 +137,9 @@ public:
 		if (np > gp) {
 			bit_best = bit_map;
 			gp = np;
+			while (!tabu_list.empty()) {
+				tabu_list.pop();
+			}
 		}
 		return;
 	}
@@ -142,21 +149,6 @@ public:
 		int size = l.size();
 		for (int i = 0; i < size; i++) {
 			if (ltmp.front() == t) {
-				return true;
-			}
-			ltmp.pop();
-		}
-		return false;
-	}
-
-
-
-	bool find_tabu() {
-		queue<vector<bool>> ltmp = tabu_list;
-		vector<bool> btmp = bit_map.bit_map;
-		int size = ltmp.size();
-		for (int i = 0; i < size; i++) {
-			if (ltmp.front() == btmp) {
 				return true;
 			}
 			ltmp.pop();

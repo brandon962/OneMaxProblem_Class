@@ -67,8 +67,8 @@ public:
 				}
 
 			}
-			cout << "Have " << gp << "'s 1" << endl << endl;
-			cout << "End " << i << " run." << endl ;
+			cout << "Have " << gp << "'s 1" << endl ;
+			cout << "End " << i << " run." << endl << endl;
 		}
 		int itmp = 0;
 		for (int i = 0; i < savenum; i++) {

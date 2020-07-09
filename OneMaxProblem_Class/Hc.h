@@ -75,13 +75,17 @@ public:
 		strcat(filename, algoname);
 		strcat(filename, ".txt");
 
+
 		fp = fopen(filename, "w+");
+
 
 		for (int i = 0; i < savenum; i++) {
 			fprintf(fp, "%d%s%d%s", (i + 1) * savefreq, " ", savedata[i], "\n");
 		}
 
 		fclose(fp);
+		 
+		return;
 	}
 
 	void initial() {
