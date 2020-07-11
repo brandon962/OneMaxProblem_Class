@@ -1,15 +1,16 @@
+#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
 #include <iostream>
 #include "mybitset.h"
 #include <ctime>
-#include <string>
+#include <cstring>
 
 using namespace std;
 
 class AlgoClass
 {
 public:
-	int savefreq = 50;
+	int savefreq = 20;
 	int** rundata;
 	int* savedata;
 	int savenum;

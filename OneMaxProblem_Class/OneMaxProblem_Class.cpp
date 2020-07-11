@@ -1,7 +1,7 @@
 ﻿#define _CRT_SECURE_NO_DEPRECATE
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #include <iostream>
-#include <string>
+#include <cstring>
 #include "mybitset.h"
 #include "es.h"
 #include "hclr.h"
@@ -15,10 +15,10 @@ int main(int argc, char* argv[])
 {
     int runs = 30;
     int bits = 100;
-    int iterations = 1000;
+    int iterations = 1000*20;
     string algo;
-    int temperature = 1;
-    int alpha = 0.9;
+    double temperature = 1.2;
+    double alpha = 0.97;
     int list_long = 10;
 
     if (argc > 1)
@@ -75,6 +75,7 @@ int main(int argc, char* argv[])
         ts.run();
     }
     
+    cout << endl;
     return 0;
 
 }

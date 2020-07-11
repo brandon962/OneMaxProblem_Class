@@ -1,3 +1,6 @@
+#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
+#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
 #include "AlgoClass.h"
 #include <queue>
@@ -8,7 +11,7 @@ public:
 	queue <vector<bool>> tabu_list;
 	int list_long = 10;
 public:
-	void mesg() {
+	void mssg() {
 		cout << "HI, here is ts algo." << endl;
 		cout << "We have : " << endl;
 		cout << "\t" << bits << " bits" << endl;
@@ -20,7 +23,7 @@ public:
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "ts");
-		mesg();
+		mssg();
 		savenum = iterations / savefreq;
 		savedata = (int*)calloc(savenum, sizeof(int));
 	}
