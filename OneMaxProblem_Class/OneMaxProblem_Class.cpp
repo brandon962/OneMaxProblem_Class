@@ -75,6 +75,8 @@ int main(int argc, char* argv[])
         ts.run();
     }
     
+    cout << endl;
+
     return 0;
 
 }
