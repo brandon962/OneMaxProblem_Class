@@ -107,7 +107,7 @@ public:
 	}
 
 	void transition() {
-		srand(time(NULL));
+		//srand(time(NULL));
 		if (rand() % 2) {
 			for (int i = bits - 1; i >= 0; i--) {
 				if (bit_map.test(i)) {
