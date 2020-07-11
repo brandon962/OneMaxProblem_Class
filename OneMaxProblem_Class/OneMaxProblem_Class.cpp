@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
     int runs = 30;
     int bits = 100;
-    int iterations = 1000;
+    int iterations = 1000*20;
     string algo;
     double temperature = 1.2;
     double alpha = 0.97;
