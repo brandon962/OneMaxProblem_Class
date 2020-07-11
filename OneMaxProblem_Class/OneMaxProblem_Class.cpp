@@ -65,10 +65,10 @@ int main(int argc, char* argv[])
     }
     else
     {
-        /*Hc hc = Hc(runs, iterations, bits);
+        Hc hc = Hc(runs, iterations, bits);
         hc.run();
         HcLr hclr = HcLr(runs, iterations, bits);
-        hclr.run();*/
+        hclr.run();
         Sa sa = Sa(runs, iterations, bits, temperature, alpha);
         sa.run();
         Ts ts = Ts(runs, iterations, bits, list_long);
