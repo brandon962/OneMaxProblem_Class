@@ -71,19 +71,12 @@ int main(int argc, char* argv[])
         hclr.run();*/
         Sa sa = Sa(runs, iterations, bits, temperature, alpha);
         sa.run();
-<<<<<<< Updated upstream
         Ts ts = Ts(runs, iterations, bits, list_long);
         ts.run();
     }
     
     cout << endl;
     cout << "so how about this" << endl;
-=======
-        /*Ts ts = Ts(runs, iterations, bits, list_long);
-        ts.run();*/
-    }
-    
->>>>>>> Stashed changes
     return 0;
 
 }
