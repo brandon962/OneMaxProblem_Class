@@ -12,8 +12,14 @@ using namespace std;
 int main()
 {
     
+<<<<<<< Updated upstream
     HcLr test = HcLr(30, 3000, 100);
     test.run();
+=======
+    cout << endl;
+    //cout << "so how about this" << endl;
+    return 0;
+>>>>>>> Stashed changes
 
     Sa test1 = Sa(30, 3000, 100);
     test1.run();
