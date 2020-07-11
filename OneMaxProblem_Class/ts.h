@@ -3,17 +3,16 @@
 #pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
 #include "AlgoClass.h"
-#include <cmath>
+#include <queue>
+#include <string>
 
-class Sa : public AlgoClass {
+class Ts : public AlgoClass {
 public:
-	double temperature = 1;
-	double temperature_end = 0.001;
-	int ap;
-	double alpha = 0.85;
+	queue <vector<bool>> tabu_list;
+	int list_long = 10;
 public:
 	void mssg() {
-		cout << "HI, here is sa algo." << endl;
+		cout << "HI, here is ts algo." << endl;
 		cout << "We have : " << endl;
 		cout << "\t" << bits << " bits" << endl;
 		cout << "\t" << iterations << " iterations" << endl;
@@ -23,28 +22,23 @@ public:
 	void init() {
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
-		strcpy(algoname, "sa");
+		strcpy(algoname, "ts");
 		mssg();
 		savenum = iterations / savefreq;
-		rundata = (int**)calloc(runs, sizeof(int*));
-		for (int i = 0; i < runs; i++) {
-			rundata[i] = (int*)calloc(savenum, sizeof(int));
-		}
 		savedata = (int*)calloc(savenum, sizeof(int));
 	}
 
-	Sa() {
+	Ts() {
 		runs = 30;
 		iterations = 3000;
 		bits = 100;
 		init();
 	}
-	Sa(int _r, int _i, int _b, double _t, double _a) {
+	Ts(int _r, int _i, int _b, int _l) {
 		runs = _r;
 		iterations = _i;
 		bits = _b;
-		temperature = _t;
-		alpha = _a;
+		list_long = _l;
 		init();
 	}
 
@@ -61,25 +55,22 @@ public:
 			{
 				transition();
 				determination();
-				temperature *= alpha;
-				
 				if ((j + 1) % savefreq == 0) {
-					rundata[i - 1][count] = gp;
+					savedata[count] += gp;
 					count++;
 				}
-				
 
 			}
-			cout << "Have " << gp << "'s 1" << endl ;
+
+			while (!tabu_list.empty()) {
+				tabu_list.pop();
+			}
+			cout << "Have " << gp << " 1's." << endl;
 			cout << "End " << i << " run." << endl << endl;
 		}
-		int itmp = 0;
+		
 		for (int i = 0; i < savenum; i++) {
-			itmp = 0;
-			for (int j = 0; j < runs; j++) {
-				itmp += rundata[j][i];
-			}
-			savedata[i] = itmp / runs;
+			savedata[i] /= runs;
 		}
 
 
@@ -95,7 +86,6 @@ public:
 
 		fclose(fp);
 		end_time = time(NULL);
-		
 	}
 
 	void initial() {
@@ -108,10 +98,15 @@ public:
 		}
 
 		bit_best = bit_map;
-		bit_acc = bit_map;
-		ap = evaluation(bit_acc);
 		np = evaluation(bit_map);
 		gp = np;
+
+
+		for (int i = 0; i < list_long; i++) {
+			tabu_list.push(bit_map.bit_map);
+		}
+
+		
 
 		cout << "The initial bitmap" << endl;
 		cout << bit_map.to_string() << endl;
@@ -123,31 +118,45 @@ public:
 	}
 
 	void transition() {
-		bit_map = bit_acc;
-		int itmp = rand() % bits;
-		bit_map.flip(itmp);
+		int itmp;
+		bool btmp;
+		do {
+			bit_map = bit_best;
+			itmp = rand() % bits;
+			bit_map.flip(itmp);
+		} while (find_tabu(tabu_list, bit_map.bit_map));
+
+		if (tabu_list.size() < list_long)
+			tabu_list.push(bit_map.bit_map);
+		else {
+		tabu_list.pop();
+		tabu_list.push(bit_map.bit_map);
+		}
+
 		np = evaluation(bit_map);
 	}
 
-	double probability() {
-		return exp((0.0 + np - ap) / temperature);
-	}
-
 	void determination() {
-		double r;
-		r = (double)rand() / RAND_MAX;
-
-		if (probability() > r)
-		{
-			bit_acc = bit_map;
-			ap = evaluation(bit_acc);
-			if (np > gp) {
-				bit_best = bit_map;
-				gp = np;
+		if (np > gp) {
+			bit_best = bit_map;
+			gp = np;
+			while (!tabu_list.empty()) {
+				tabu_list.pop();
 			}
 		}
 		return;
 	}
+	
+	bool find_tabu(queue<vector<bool>> l, vector<bool> t) {
+		queue<vector<bool>> ltmp = l;
+		int size = l.size();
+		for (int i = 0; i < size; i++) {
+			if (ltmp.front() == t) {
+				return true;
+			}
+			ltmp.pop();
+		}
+		return false;
+	}
 
 };
-
