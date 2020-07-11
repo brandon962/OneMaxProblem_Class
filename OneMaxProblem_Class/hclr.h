@@ -1,3 +1,4 @@
+#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
 #include "AlgoClass.h"
 
@@ -5,7 +6,7 @@ class HcLr : public AlgoClass {
 public:
 
 public:
-	void mesg() {
+	void mssg() {
 		cout << "HI, here is hclr algo." << endl;
 		cout << "We have : " << endl;
 		cout << "\t" << bits << " bits" << endl;
@@ -17,7 +18,7 @@ public:
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "hclr");
-		mesg();
+		mssg();
 		savenum = iterations / savefreq;
 		rundata = (int**)calloc(runs, sizeof(int*));
 		for (int i = 0; i < runs; i++) {

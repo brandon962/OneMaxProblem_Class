@@ -1,8 +1,9 @@
+#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
 #include <iostream>
 #include "mybitset.h"
 #include <ctime>
-#include <string>
+#include <cstring>
 
 using namespace std;
 
