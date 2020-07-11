@@ -1,7 +1,7 @@
 ﻿#define _CRT_SECURE_NO_DEPRECATE
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
 #include <iostream>
-#include <string>
+#include <cstring>
 #include "mybitset.h"
 #include "es.h"
 #include "hclr.h"
@@ -17,8 +17,8 @@ int main(int argc, char* argv[])
     int bits = 100;
     int iterations = 1000;
     string algo;
-    int temperature = 1;
-    int alpha = 0.9;
+    double temperature = 1.2;
+    double alpha = 0.97;
     int list_long = 10;
 
     if (argc > 1)
@@ -65,16 +65,18 @@ int main(int argc, char* argv[])
     }
     else
     {
-        Hc hc = Hc(runs, iterations, bits);
+        /*Hc hc = Hc(runs, iterations, bits);
         hc.run();
         HcLr hclr = HcLr(runs, iterations, bits);
-        hclr.run();
+        hclr.run();*/
         Sa sa = Sa(runs, iterations, bits, temperature, alpha);
         sa.run();
         Ts ts = Ts(runs, iterations, bits, list_long);
         ts.run();
     }
     
+    cout << endl;
+
     return 0;
 
 }
