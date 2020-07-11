@@ -1,4 +1,6 @@
-#pragma once
+#define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
+#pragma clang diagnostic ignored "-Wpragma-once-outside-header"
 #pragma once
 #include "AlgoClass.h"
 #include <cmath>
@@ -10,7 +12,7 @@ public:
 	int ap;
 	double alpha = 0.85;
 public:
-	void mesg() {
+	void mssg() {
 		cout << "HI, here is sa algo." << endl;
 		cout << "We have : " << endl;
 		cout << "\t" << bits << " bits" << endl;
@@ -22,7 +24,7 @@ public:
 		bit_map = MyBitSet(bits);
 		bit_best = MyBitSet(bits);
 		strcpy(algoname, "sa");
-		mesg();
+		mssg();
 		savenum = iterations / savefreq;
 		rundata = (int**)calloc(runs, sizeof(int*));
 		for (int i = 0; i < runs; i++) {
@@ -65,6 +67,7 @@ public:
 					rundata[i - 1][count] = gp;
 					count++;
 				}
+				
 
 			}
 			cout << "Have " << gp << "'s 1" << endl ;
