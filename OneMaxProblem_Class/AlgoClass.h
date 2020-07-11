@@ -10,7 +10,7 @@ using namespace std;
 class AlgoClass
 {
 public:
-	int savefreq = 50;
+	int savefreq = 20;
 	int** rundata;
 	int* savedata;
 	int savenum;

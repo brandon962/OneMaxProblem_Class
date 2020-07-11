@@ -76,7 +76,6 @@ int main(int argc, char* argv[])
     }
     
     cout << endl;
-    cout << "so how about this" << endl;
     return 0;
 
 }
